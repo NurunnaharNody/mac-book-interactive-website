@@ -2,41 +2,46 @@
 const bestPriceCost = document.getElementById('bestprice-cost');
 const memoryCost = document.getElementById('memory-cost');
 const storageCost = document.getElementById('storage-cost');
-const shippingCharge = document.getElementById('shipping-charge');
+const shippingCost = document.getElementById('shipping-cost');
 const totalPrice = document.getElementById('total-price');
 const totalCostUpdate = document.getElementById('total-cost-update');
 
-// memory selection with cost
+// selection with cost
+function selection(quality,price){
+    const qualityCost = document.getElementById(quality + '-cost');
+    qualityCost.innerText= price ;
+}
+// memory selection 
 document.getElementById('memory-selection-8GB').addEventListener('click', function(){
-     memoryCost.innerText='0';
+    selection('memory',0);
     updateTotal();
 });
 document.getElementById('memory-selection-16GB').addEventListener('click', function(){
-    memoryCost.innerText='180';
+    selection('memory',180);
       updateTotal();
 });
 
-// storage selection with cost 
+// storage selection  
 document.getElementById('storage-256GB').addEventListener('click',function(){
-    storageCost.innerText='0';
+    selection('storage',0);
     updateTotal();
 });
 document.getElementById('storage-512GB').addEventListener('click',function(){
-    storageCost.innerText='100';
+    selection('storage',100);
     updateTotal();
 });
 document.getElementById('storage-1TB').addEventListener('click',function(){
-    storageCost.innerText='180';
+    selection('storage',180);
     updateTotal();
 });
 
-// shipping selection with cost 
+// shipping selection 
 document.getElementById('free-shipping').addEventListener('click',function(){
-      shippingCharge.innerText='0';
+    selection('shipping',0);
       updateTotal();
 });
 document.getElementById('paid-shipping').addEventListener('click',function(){
-    shippingCharge.innerText='20';
+    selection('shipping',20);
     updateTotal();
 });
 
@@ -45,7 +50,7 @@ function updateTotal(){
     const bestPriceField = parseInt(bestPriceCost.innerText);
     const memoryField = parseInt(memoryCost.innerText);
     const storageField = parseInt(storageCost.innerText);
-    const shippingField = parseInt(shippingCharge.innerText);
+    const shippingField = parseInt(shippingCost.innerText);
     const total = bestPriceField + memoryField + storageField + shippingField ;
     totalPrice.innerText = total;
     totalCostUpdate.innerText=total;
@@ -60,6 +65,9 @@ document.getElementById('promo-check-button').addEventListener('click', function
         const total = totalPrice.innerText;
         const promoPrice = (total-((total*20)/100)) ;
         totalCostUpdate.innerText=promoPrice;
+       }
+       else{
+           console.log('please, enter correct promo code');
        }
     //    clear promo-input field 
     promoCheckField.value='';
